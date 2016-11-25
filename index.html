@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+  <script src="d3.parsets.js"></script>
+  <link rel="stylesheet" type="text/css" href="d3.parsets.css">
+  <script>
+    
+     function getMessage() {
+     
+      v1 =document.getElementById("msg1").value  //get first variable     
+      v2 =document.getElementById("msg2").value  //get second variable 
+      chart.dimensions(["Survival", v1, v2]);    //reset parasets 
+      d3.csv("titanic_data.csv", function(csv) {
+        vis.datum(csv).call(chart);
+      });
+   };
+  </script> 
+</head>
+<body>
+   <p style="font-size:18px"> <b> Understand survival on the Titanic with two selected variables: </b> </p>
+   <p style="font-size:16px"> The default selection is <b>Sex and AgeGroup </b>. Please select differenet variables from the dropdowns.</p>
+
+   <form >
+       First variable:   
+     <select id ="msg1"  name="msg1" >
+     <option selected= "selected">Please select</option>
+     <option>Pclass</option>
+     <option>Sex</option>
+     <option>AgeGroup</option>
+     <option>EmbarkedPort</option>
+     <option>Siblings/SpousesAboard</option>
+     <option>Parents/ChildrenAboard</option>
+     <option>HaveCabin</option>
+     <option>FareGroup</option>
+     </select>
+       Second variable:  
+     <select id ="msg2"  name="msg2" >
+     <option selected= "selected">Please select</option>
+     <option>Pclass</option>
+     <option>Sex</option>
+     <option>AgeGroup</option>
+     <option>EmbarkedPort</option>
+     <option>Siblings/SpousesAboard</option>
+     <option>Parents/ChildrenAboard</option>
+     <option>HaveCabin</option>
+     <option>FareGroup</option>
+     </select>
+   </form>
+   <p>
+   <button onclick="getMessage()">Get Graph</button> 
+   </p>
+
+   <script > 
+
+    var v1 ="Sex"     
+    var v2 ="AgeGroup"
+    
+    var chart = d3.parsets()
+                  .width(900)
+                  .height(500)
+                  .dimensions(["Survival", v1, v2]);
+              
+
+     var vis = d3.select("body").append("svg")
+               .attr("width",chart.width())
+               .attr("height",chart.height());
+ 
+     d3.csv("titanic_data.csv", function(csv) {
+            vis.datum(csv).call(chart);
+     });
+    </script>
+
+</body>
+
+</html>
